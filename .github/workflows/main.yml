@@ -1,0 +1,24 @@
+name: Deploy a Surge
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar el código
+        uses: actions/checkout@v4
+
+      - name: Instalar Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Instalar Surge
+        run: npm install -g surge
+
+      - name: Desplegar
+        run: surge ./ cesarwick917-practica.surge.sh --token ${{ secrets.SURGE_TOKEN }}
